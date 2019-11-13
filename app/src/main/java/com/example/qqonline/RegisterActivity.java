@@ -19,6 +19,7 @@ public class RegisterActivity extends AppCompatActivity {
     //用户名，密码，再次输入的密码的控件的获取值
     private String userName,psw,pswAgain;
     private RadioGroup Sex;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +43,6 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
                 //获取输入在相应控件中的字符串
                 getEditString();
                 //判断输入框内容
@@ -70,13 +70,9 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "请选择性别", Toast.LENGTH_SHORT).show();
                 }else if(!psw.equals(pswAgain)){
                     Toast.makeText(RegisterActivity.this, "输入两次的密码不一样", Toast.LENGTH_SHORT).show();
-
-                    /**
-                     *从SharedPreferences中读取输入的用户名，判断SharedPreferences中是否有此用户名
-                     */
+                 //从SharedPreferences中读取输入的用户名，判断SharedPreferences中是否有此用户名
                 }else if(isExistUserName(userName)){
                     Toast.makeText(RegisterActivity.this, "此账户名已经存在", Toast.LENGTH_SHORT).show();
-
                 }else{
                     Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                     //把账号、密码和账号标识保存到sp里面
@@ -96,9 +92,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-    /**
-     * 获取控件中的字符串
-     */
+
+    //获取控件中的字符串
     private void getEditString(){
         userName=et_user_name.getText().toString().trim();
         psw=et_psw.getText().toString().trim();
@@ -124,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
      * 保存账号和密码到SharedPreferences中SharedPreferences
      */
     private void saveRegisterInfo(String userName,String psw){
-//        String md5Psw = MD5Utils.md5(psw);//把密码用MD5加密
+        String md5Psw = MD5Utils.md5(psw);//把密码用MD5加密
         //loginInfo表示文件名, mode_private SharedPreferences sp = getSharedPreferences( );
         SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
 
@@ -132,7 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
         SharedPreferences.Editor editor=sp.edit();
         //以用户名为key，密码为value保存在SharedPreferences中
         //key,value,如键值对，editor.putString(用户名，密码）;
-//        editor.putString(userName, md5Psw);
+        editor.putString(userName, md5Psw);
         //提交修改 editor.commit();
         editor.apply();
     }

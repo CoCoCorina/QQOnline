@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_1"
+    android:background="@drawable/bg_12"
     android:orientation="vertical">
 
     <LinearLayout
@@ -80,3 +80,4 @@
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
+
