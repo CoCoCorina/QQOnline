@@ -1,6 +1,5 @@
 package com.example.qqonline;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -12,18 +11,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class MainActivity extends AppCompatActivity {
-    private String userName,psw,spPsw;//获取的用户名，密码，加密密码
-    private EditText et_user_name,et_psw;//编辑框
+    private String userName, psw, spPsw;//获取的用户名，密码，加密密码
+    private EditText et_user_name, et_psw;//编辑框
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //设置此界面为竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         init();
     }
+
     //获取界面控件
     private void init() {
         //从main_title_bar中获取的id
@@ -31,14 +33,14 @@ public class MainActivity extends AppCompatActivity {
         TextView tv_register = (TextView) findViewById(R.id.tv_register);
         TextView tv_find_psw = (TextView) findViewById(R.id.tv_find_psw);
         Button btn_login = (Button) findViewById(R.id.btn_login);
-        et_user_name= (EditText) findViewById(R.id.et_user_name);
-        et_psw= (EditText) findViewById(R.id.et_psw);
+        et_user_name = (EditText) findViewById(R.id.et_user_name);
+        et_psw = (EditText) findViewById(R.id.et_psw);
         //立即注册控件的点击事件
         tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //为了跳转到注册界面，并实现注册功能
-                Intent intent=new Intent(MainActivity.this,RegisterActivity.class);
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivityForResult(intent, 1);
             }
         });
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         tv_find_psw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,LostFindActivity.class));
+                startActivity(new Intent(MainActivity.this, LostFindActivity.class));
             }
         });
         //登录按钮的点击事件
@@ -91,24 +93,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     /**
-     *从SharedPreferences中根据用户名读取密码
+     * 从SharedPreferences中根据用户名读取密码
      */
-    private String readPsw(String userName){
+    private String readPsw(String userName) {
         //getSharedPreferences("loginInfo",MODE_PRIVATE);
         //"loginInfo",mode_private; MODE_PRIVATE表示可以继续写入
-        SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("loginInfo", MODE_PRIVATE);
         //sp.getString() userName, "";
-        return sp.getString(userName , "");
+        return sp.getString(userName, "");
     }
+
     /**
-     *保存登录状态和登录用户名到SharedPreferences中
+     * 保存登录状态和登录用户名到SharedPreferences中
      */
-    private void saveLoginStatus(boolean status,String userName){
+    private void saveLoginStatus(boolean status, String userName) {
         //loginInfo表示文件名  SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
-        SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("loginInfo", MODE_PRIVATE);
         //获取编辑器
-        SharedPreferences.Editor editor=sp.edit();
+        SharedPreferences.Editor editor = sp.edit();
         //存入boolean类型的登录状态
         editor.putBoolean("isLogin", status);
         //存入登录状态时的用户名
@@ -116,11 +120,13 @@ public class MainActivity extends AppCompatActivity {
         //提交修改
         editor.apply();
     }
+
     /**
      * 注册成功的数据返回至此
+     *
      * @param requestCode 请求码
-     * @param resultCode 结果码
-     * @param data 数据
+     * @param resultCode  结果码
+     * @param data        数据
      */
     @Override
     //显示数据， onActivityResult
@@ -130,11 +136,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
-        if(data!=null){
+        if (data != null) {
             //是获取注册界面回传过来的用户名
 //             getExtra().getString("***");
-            String userName=data.getStringExtra("userName");
-            if(!TextUtils.isEmpty(userName)){
+            String userName = data.getStringExtra("userName");
+            if (!TextUtils.isEmpty(userName)) {
                 //设置用户名到 et_user_name 控件
                 et_user_name.setText(userName);
                 //et_user_name控件的setSelection()方法来设置光标位置
